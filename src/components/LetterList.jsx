@@ -55,4 +55,7 @@ const StyledLetterList = styled.ul`
     transform: scale(1.05);
   }
 `;
-const StyledEmptyLetter = styled.p``;
+const StyledEmptyLetter = styled.p`
+  padding: 0.5rem 1rem;
+  color: white;
+`;

@@ -52,6 +52,7 @@ export default function Home({ memberLetterList, setMemberLetterList }) {
       <Header
         handleSelectMember={handleSelectMember}
         members={members.current}
+        selectedMember={selectedMember}
       />
       <LetterForm
         handleEnrollLetter={handleEnrollLetter}

@@ -9,7 +9,6 @@ export default function LetterItem({
   content,
   avatar,
 }) {
-  console.log(avatar);
   return (
     <li onClick={handleNavigate(id)}>
       <StyledLetterItemWrapper>
@@ -41,15 +40,19 @@ const StyledLetterItemWrapper = styled.div`
 `;
 
 const StyledLetterItemInfo = styled.div`
-  flex: 0.8;
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 0.8rem;
+  overflow: hidden;
 
   span:last-child {
     padding: 0.5rem;
     background-color: rgb(50, 50, 50);
     border-radius: 0.5rem;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `;

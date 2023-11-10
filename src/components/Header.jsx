@@ -68,10 +68,10 @@ const StyledNavList = styled.ul`
   border-radius: 0.5rem;
 `;
 const StyledNavListItem = styled.li`
+  background-color: ${(props) => (props.selected ? "yellow" : "black")};
+  color: ${(props) => (props.selected ? "black" : "white")};
   border-radius: 0.5rem;
   padding: 0.5rem 2rem;
-  background-color: black;
-  color: white;
   border: 1px solid black;
 
   &:hover {
@@ -79,3 +79,8 @@ const StyledNavListItem = styled.li`
     color: black;
   }
 `;
+
+function tab(x) {
+  console.log(x);
+  return x;
+}
