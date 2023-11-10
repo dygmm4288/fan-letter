@@ -34,7 +34,12 @@ function App() {
       });
   }, []);
 
-  return <Router memberLetterList={toMap(memberLetterList)} />;
+  return (
+    <Router
+      memberLetterList={toMap(memberLetterList)}
+      setMemberLetterList={setMemberLetterList}
+    />
+  );
 }
 
 function toMap(letters) {

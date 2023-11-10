@@ -4,10 +4,12 @@ import LetterForm from "components/LetterForm";
 import LetterList from "components/LetterList";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuid } from "uuid";
+import defaultAvatar from "../assets/img/default-avatar.png";
 
 // * 페이지와 컨테이너의 역할 동시에 수행
 
-export default function Home({ memberLetterList }) {
+export default function Home({ memberLetterList, setMemberLetterList }) {
   const [selectedMember, setSelectedMember] = useState(KARINA);
 
   const [formState, setFormState] = useState({
@@ -30,7 +32,15 @@ export default function Home({ memberLetterList }) {
   };
   const handleEnrollLetter = (e) => {
     e.preventDefault();
-    console.log(formState);
+    const newLetter = {
+      createdAt: new Date().toISOString(),
+      nickname: formState.nickname,
+      avatar: defaultAvatar,
+      content: formState.content,
+      writedTo: formState.selected,
+      id: uuid(),
+    };
+    setMemberLetterList((prev) => prev.concat(newLetter));
   };
 
   const handleNavigate = (id) => () => {
