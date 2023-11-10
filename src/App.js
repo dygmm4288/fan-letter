@@ -19,20 +19,32 @@ export const memberEnglishMap = {
   닝닝: NINGNING,
 };
 export const memberToEng = (member) => memberEnglishMap[member];
+const FAN_LETTER_KEY = "fan-letter";
 function App() {
   const [memberLetterList, setMemberLetterList] = useState([]);
 
   useEffect(() => {
-    fetch("fakeData.json")
+    // ! fake data localStorage에 적용 완료
+    /* fetch("fakeData.json")
       .then(async (result) => {
         result = await result.json();
-        setMemberLetterList(result);
+
+        const localStorageData =
+          JSON.parse(localStorage.getItem(FAN_LETTER_KEY)) || [];
+        setMemberLetterList(result.concat(localStorageData));
       })
       .catch((e) => {
         alert("정보를 불러올 수 없습니다.");
         console.error(e);
-      });
+      }); */
+    const localStorageData =
+      JSON.parse(localStorage.getItem(FAN_LETTER_KEY)) || [];
+    setMemberLetterList(localStorageData);
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem(FAN_LETTER_KEY, JSON.stringify(memberLetterList));
+  }, [memberLetterList]);
 
   return (
     <Router
