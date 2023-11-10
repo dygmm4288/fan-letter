@@ -16,7 +16,7 @@ export default function Header({
             <MemberNavItem
               key={"nav-item/" + member}
               handleSelectMember={handleSelectMember}
-              member={memberKoreanMap[member]}
+              member={member}
               selected={member === selectedMember}
             />
           ))}
@@ -29,7 +29,7 @@ export default function Header({
 function MemberNavItem({ member, handleSelectMember, selected }) {
   return (
     <StyledNavListItem onClick={handleSelectMember(member)} selected={selected}>
-      {member}
+      {memberKoreanMap[member]}
     </StyledNavListItem>
   );
 }
