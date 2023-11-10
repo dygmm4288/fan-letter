@@ -1,3 +1,3 @@
-export default function LetterItem() {
-  return <li>Letter Item</li>;
+export default function LetterItem({ handleNavigate, id = 123 }) {
+  return <li onClick={handleNavigate(id)}>Letter Item</li>;
 }

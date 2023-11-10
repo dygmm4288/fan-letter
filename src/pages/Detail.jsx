@@ -1,10 +1,15 @@
-import { Link } from "react-router-dom";
+import LetterDetailWrapper from "components/LetterDetailWrapper";
+import { Link, useParams } from "react-router-dom";
 
-export default function Detail() {
+export default function Detail({ memberLetterList }) {
+  const { member, id } = useParams();
+  const getLetters = () =>
+    memberLetterList[member].find((letter) => letter.id === id);
+
   return (
     <div>
-      Detail
-      <Link to='/'> Home</Link>
+      <Link to='/'> 홈으로</Link>
+      <LetterDetailWrapper letters={getLetters()} />
     </div>
   );
 }

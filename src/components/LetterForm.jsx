@@ -1,3 +1,4 @@
+import { memberKoreanMap } from "App";
 import styled from "styled-components";
 import Button from "./Button";
 
@@ -7,7 +8,7 @@ export default function LetterForm({
   handleChangeFormValue,
   handleEnrollLetter,
 }) {
-  const { nickname, content, selected } = formState;
+  const { nickname, content } = formState;
   const handleEtargetValue = (key) => (e) =>
     handleChangeFormValue(key)(e.target.value);
   return (
@@ -43,7 +44,7 @@ export default function LetterForm({
         <select onChange={handleEtargetValue("selected")}>
           {members.map((member) => (
             <option key={"option/" + member} value={member}>
-              {member}
+              {memberKoreanMap[member]}
             </option>
           ))}
         </select>
