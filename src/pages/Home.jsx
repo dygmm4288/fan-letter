@@ -20,7 +20,7 @@ export default function Home() {
   const handleChangeFormValue = (key) => (value) => {
     setFormState((prev) => ({
       ...prev,
-      key: value,
+      [key]: value,
     }));
   };
 

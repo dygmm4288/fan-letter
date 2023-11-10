@@ -12,6 +12,7 @@ export default function Header({
         <StyledNavList>
           {members.map((member) => (
             <MemberNavItem
+              key={"nav-item/" + member}
               handleSelectMember={handleSelectMember}
               member={member}
               selected={member === selectedMember}
