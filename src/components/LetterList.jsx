@@ -6,12 +6,12 @@ export default function LetterList({ memberName, letters, handleNavigate }) {
   const ifEmptyThan = alter(() => letters.length === 0);
 
   return (
-    <ul>
+    <StyledLetterList>
       {ifEmptyThan(
         <EmptyLetter memberName={memberName} />,
         <LetterItems letters={letters} handleNavigate={handleNavigate} />,
       )}
-    </ul>
+    </StyledLetterList>
   );
 }
 function LetterItems({ letters, handleNavigate }) {
@@ -35,5 +35,24 @@ function EmptyLetter({ memberName }) {
     </StyledEmptyLetter>
   );
 }
+const StyledLetterList = styled.ul`
+  width: 512px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.5rem;
 
+  padding: 1rem;
+
+  background-color: black;
+
+  gap: 1.5rem;
+  li {
+    width: 100%;
+    transition: transform 0.2s ease-in-out;
+  }
+  li:hover {
+    transform: scale(1.05);
+  }
+`;
 const StyledEmptyLetter = styled.p``;

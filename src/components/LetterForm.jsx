@@ -72,6 +72,8 @@ const StyledForm = styled.form`
   .select-wrapper label {
     margin-right: 1rem;
   }
+
+  border-radius: 0.5rem;
 `;
 const StyledInputWrapper = styled.div`
   display: flex;
