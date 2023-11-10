@@ -25,20 +25,21 @@ function App() {
 
   useEffect(() => {
     // ! fake data localStorage에 적용 완료
-    /* fetch("fakeData.json")
-      .then(async (result) => {
-        result = await result.json();
 
-        const localStorageData =
-          JSON.parse(localStorage.getItem(FAN_LETTER_KEY)) || [];
-        setMemberLetterList(result.concat(localStorageData));
-      })
-      .catch((e) => {
-        alert("정보를 불러올 수 없습니다.");
-        console.error(e);
-      }); */
     const localStorageData =
       JSON.parse(localStorage.getItem(FAN_LETTER_KEY)) || [];
+    if (localStorageData.length === 0) {
+      fetch("fakeData.json")
+        .then(async (result) => {
+          result = await result.json();
+          setMemberLetterList(result);
+        })
+        .catch((e) => {
+          alert("정보를 불러올 수 없습니다.");
+          console.error(e);
+        });
+      return;
+    }
     setMemberLetterList(localStorageData);
   }, []);
 

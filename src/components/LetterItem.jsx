@@ -55,5 +55,6 @@ const StyledLetterItemInfo = styled.div`
 
     overflow: hidden;
     text-overflow: ellipsis;
+    text-wrap: nowrap;
   }
 `;
