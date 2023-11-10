@@ -1,20 +1,22 @@
-import { memberList } from "App";
+import { KARINA, memberList } from "App";
 import Header from "components/Header";
 import LetterForm from "components/LetterForm";
 import LetterList from "components/LetterList";
 import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // * 페이지와 컨테이너의 역할 동시에 수행
 
 export default function Home({ memberLetterList }) {
-  const [selectedMember, setSelectedMember] = useState("카리나");
+  const [selectedMember, setSelectedMember] = useState(KARINA);
 
   const [formState, setFormState] = useState({
     nickname: "",
     content: "",
-    selected: "카리나",
+    selected: KARINA,
   });
 
+  const navigate = useNavigate();
   const members = useRef(memberList);
 
   const handleSelectMember = (member) => () => {
@@ -31,6 +33,10 @@ export default function Home({ memberLetterList }) {
     console.log(formState);
   };
 
+  const handleNavigate = (id) => () => {
+    navigate(`/detail/${selectedMember}/${id}`);
+  };
+
   return (
     <>
       <Header
@@ -45,7 +51,7 @@ export default function Home({ memberLetterList }) {
       />
       <LetterList
         letters={memberLetterList[selectedMember]}
-        selectedMember={selectedMember}
+        handleNavigate={handleNavigate}
       />
     </>
   );

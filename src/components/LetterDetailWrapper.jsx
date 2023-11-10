@@ -1,4 +1,6 @@
+import { memberKoreanMap } from "App";
 import { alter } from "lib/alter";
+import styled from "styled-components";
 import Button from "./Button";
 
 export default function LetterDetailWrapper({ letters }) {
@@ -18,11 +20,22 @@ const EmptyLetterDetail = () => {
     </div>
   );
 };
-const LetterDetail = ({}) => {
+const LetterDetail = ({ writeTo, content, nickname, createdAt, avatar }) => {
   return (
-    <div>
+    <StyledDetail>
+      <StyledDetailHeader>
+        <img src={avatar} alt={nickname + "profile image"} />
+        <span>{nickname}</span>
+        <span>{createdAt}</span>
+      </StyledDetailHeader>
+      <span>To : {memberKoreanMap[writeTo]}</span>
+      <StyledContent>{content}</StyledContent>
       <Button>수정</Button>
       <Button>삭제</Button>
-    </div>
+    </StyledDetail>
   );
 };
+
+const StyledDetail = styled.div``;
+const StyledDetailHeader = styled.div``;
+const StyledContent = styled.p``;

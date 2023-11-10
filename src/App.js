@@ -1,5 +1,5 @@
 import Router from "pages/Router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const KARINA = "karina";
 export const WINTER = "winter";
@@ -20,14 +20,32 @@ export const memberEnglishMap = {
 };
 export const memberToEng = (member) => memberEnglishMap[member];
 function App() {
-  const [memberLetterList, setMemberLetterList] = useState(
-    memberList.reduce((a, c) => {
-      a[c] = [];
-      return a;
-    }, {}),
-  );
+  const [memberLetterList, setMemberLetterList] = useState([]);
 
-  return <Router memberLetterList={memberLetterList} />;
+  useEffect(() => {
+    fetch("fakeData.json")
+      .then(async (result) => {
+        result = await result.json();
+        setMemberLetterList(result);
+      })
+      .catch((e) => {
+        alert("정보를 불러올 수 없습니다.");
+        console.error(e);
+      });
+  }, []);
+
+  return <Router memberLetterList={toMap(memberLetterList)} />;
+}
+
+function toMap(letters) {
+  const mapMember = memberList.reduce((a, c) => {
+    a[c] = [];
+    return a;
+  }, {});
+  letters.forEach((letter) => {
+    mapMember[letter.writedTo].push(letter);
+  });
+  return mapMember;
 }
 
 export default App;
