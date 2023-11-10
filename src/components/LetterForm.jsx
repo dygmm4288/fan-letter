@@ -1,13 +1,26 @@
 import styled from "styled-components";
 import Button from "./Button";
 
-export default function LetterForm() {
+export default function LetterForm({
+  members,
+  formState,
+  handleChangeFormValue,
+}) {
+  const { nickname, content, selected } = formState;
+  const handleEtargetValue = (key) => (e) =>
+    handleChangeFormValue(key)(e.target.value);
   return (
     <StyledForm>
       <StyledInputWrapper>
         <StyledRow>
           <label htmlFor='nickname'></label>
-          <input id='nickname' name='content' required />
+          <input
+            id='nickname'
+            name='content'
+            required
+            value={nickname}
+            onChange={handleEtargetValue("nickname")}
+          />
         </StyledRow>
         <StyledRow>
           <label htmlFor='content'></label>
@@ -16,13 +29,17 @@ export default function LetterForm() {
             id='content'
             cols='5'
             rows='20'
-            required></textarea>
+            required
+            value={content}
+            onChange={handleEtargetValue("content")}></textarea>
         </StyledRow>
       </StyledInputWrapper>
       <div>
         <label htmlFor='select-memeber' />
-        <select>
-          <option value='카리나'>카리나</option>
+        <select onChange={handleEtargetValue("selected")}>
+          {members.map((member) => (
+            <option value={member}>{member}</option>
+          ))}
         </select>
       </div>
       <Button>팬레터 등록</Button>
