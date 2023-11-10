@@ -1,4 +1,4 @@
-import { KARINA, memberList } from "App";
+import { KARINA, memberKoreanMap, memberList } from "App";
 import Header from "components/Header";
 import LetterForm from "components/LetterForm";
 import LetterList from "components/LetterList";
@@ -42,7 +42,6 @@ export default function Home({ memberLetterList, setMemberLetterList }) {
     };
     setMemberLetterList((prev) => prev.concat(newLetter));
   };
-
   const handleNavigate = (id) => () => {
     navigate(`/detail/${selectedMember}/${id}`);
   };
@@ -60,6 +59,7 @@ export default function Home({ memberLetterList, setMemberLetterList }) {
         formState={formState}
       />
       <LetterList
+        memberName={memberKoreanMap[selectedMember]}
         letters={memberLetterList[selectedMember]}
         handleNavigate={handleNavigate}
       />
