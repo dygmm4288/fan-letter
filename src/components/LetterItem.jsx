@@ -1,3 +1,4 @@
+import timeFormat from "lib/timeFormat";
 import styled from "styled-components";
 import Avatar from "./Avatar";
 
@@ -15,7 +16,7 @@ export default function LetterItem({
         <Avatar src={avatar} alt={nickname + "user avatar profile"} />
         <StyledLetterItemInfo>
           <span>{nickname}</span>
-          <span>{createdAt}</span>
+          <span>{timeFormat(createdAt)}</span>
           <span>{content}</span>
         </StyledLetterItemInfo>
       </StyledLetterItemWrapper>
