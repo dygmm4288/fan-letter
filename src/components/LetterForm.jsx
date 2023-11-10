@@ -5,12 +5,13 @@ export default function LetterForm({
   members,
   formState,
   handleChangeFormValue,
+  handleEnrollLetter,
 }) {
   const { nickname, content, selected } = formState;
   const handleEtargetValue = (key) => (e) =>
     handleChangeFormValue(key)(e.target.value);
   return (
-    <StyledForm>
+    <StyledForm onSubmit={handleEnrollLetter}>
       <StyledInputWrapper>
         <StyledRow>
           <label htmlFor='nickname'>닉네임: </label>
@@ -47,7 +48,7 @@ export default function LetterForm({
           ))}
         </select>
       </div>
-      <Button>팬레터 등록</Button>
+      <Button type='submit'>팬레터 등록</Button>
     </StyledForm>
   );
 }

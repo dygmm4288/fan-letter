@@ -1,6 +1,6 @@
 import LetterItem from "./LetterItem";
 
-const letters = [
+/* const letters = [
   {
     avatar: "url",
     name: "",
@@ -13,12 +13,12 @@ const letters = [
     createdAt: new Date(),
     content: "카리나 멋져요",
   },
-];
-export default function LetterList() {
+]; */
+export default function LetterList({ letters }) {
   return (
     <ul>
       {letters.map((letter) => (
-        <LetterItem />
+        <LetterItem {...letter} />
       ))}
     </ul>
   );
