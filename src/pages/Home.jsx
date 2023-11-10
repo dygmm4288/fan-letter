@@ -42,6 +42,11 @@ export default function Home({ memberLetterList, setMemberLetterList }) {
       id: uuid(),
     };
     setMemberLetterList((prev) => prev.concat(newLetter));
+    setFormState((prev) => ({
+      ...prev,
+      nickname: "",
+      content: "",
+    }));
   };
   const handleNavigate = (id) => () => {
     navigate(`/detail/${selectedMember}/${id}`);
