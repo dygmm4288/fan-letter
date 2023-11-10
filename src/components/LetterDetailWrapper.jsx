@@ -1,5 +1,6 @@
 import { memberKoreanMap } from "App";
 import { alter } from "lib/alter";
+import timeFormat from "lib/timeFormat";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -85,7 +86,7 @@ const LetterDetail = ({
       <StyledDetailHeader>
         <Avatar nickname={nickname} src={avatar} />
         <h2>{nickname}</h2>
-        <span>{createdAt}</span>
+        <span>{timeFormat(createdAt)}</span>
       </StyledDetailHeader>
       <span>To : {memberKoreanMap[writedTo]}</span>
       {!isUpdate ? (
