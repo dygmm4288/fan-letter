@@ -3,6 +3,7 @@ import styled from "styled-components";
 import LetterItem from "./LetterItem";
 
 export default function LetterList({ memberName, letters, handleNavigate }) {
+  console.log(letters);
   const ifEmptyThan = alter(() => letters.length === 0);
 
   return (

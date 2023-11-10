@@ -4,6 +4,7 @@ import LetterForm from "components/LetterForm";
 import LetterList from "components/LetterList";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 import { v4 as uuid } from "uuid";
 import defaultAvatar from "../assets/img/default-avatar.png";
 
@@ -47,7 +48,7 @@ export default function Home({ memberLetterList, setMemberLetterList }) {
   };
 
   return (
-    <>
+    <StyledHome>
       <Header
         handleSelectMember={handleSelectMember}
         members={members.current}
@@ -63,6 +64,14 @@ export default function Home({ memberLetterList, setMemberLetterList }) {
         letters={memberLetterList[selectedMember]}
         handleNavigate={handleNavigate}
       />
-    </>
+    </StyledHome>
   );
 }
+
+const StyledHome = styled.div`
+  width: 100vw;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;

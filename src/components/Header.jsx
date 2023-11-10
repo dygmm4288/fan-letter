@@ -1,4 +1,6 @@
+import { memberKoreanMap } from "App";
 import styled from "styled-components";
+import aespa from "../assets/img/aespa.jpg";
 
 export default function Header({
   handleSelectMember,
@@ -14,7 +16,7 @@ export default function Header({
             <MemberNavItem
               key={"nav-item/" + member}
               handleSelectMember={handleSelectMember}
-              member={member}
+              member={memberKoreanMap[member]}
               selected={member === selectedMember}
             />
           ))}
@@ -32,6 +34,48 @@ function MemberNavItem({ member, handleSelectMember, selected }) {
   );
 }
 
-const StyledHeader = styled.header``;
-const StyledNavList = styled.ul``;
-const StyledNavListItem = styled.li``;
+const StyledHeader = styled.header`
+  height: 300px;
+  background: url(${aespa});
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+
+  h1 {
+    color: yellow;
+    font-size: 3.5rem;
+  }
+  nav {
+    position: absolute;
+    bottom: 1rem;
+  }
+`;
+const StyledNavList = styled.ul`
+  display: flex;
+  flex-direction: row;
+
+  background-color: gray;
+  border: 1px solid white;
+
+  gap: 1.5rem;
+
+  padding: 1rem;
+
+  border-radius: 0.5rem;
+`;
+const StyledNavListItem = styled.li`
+  border-radius: 0.5rem;
+  padding: 0.5rem 2rem;
+  background-color: black;
+  color: white;
+  border: 1px solid black;
+
+  &:hover {
+    background-color: yellow;
+    color: black;
+  }
+`;
