@@ -1,5 +1,5 @@
 import Router from "pages/Router";
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const KARINA = "karina";
 export const WINTER = "winter";
@@ -20,6 +20,7 @@ export const memberEnglishMap = {
 };
 export const memberToEng = (member) => memberEnglishMap[member];
 const FAN_LETTER_KEY = "fan-letter";
+const MemberLetterListContext = createContext(null);
 function App() {
   const [memberLetterList, setMemberLetterList] = useState([]);
 
@@ -48,10 +49,13 @@ function App() {
   }, [memberLetterList]);
 
   return (
-    <Router
-      memberLetterList={toMap(memberLetterList)}
-      setMemberLetterList={setMemberLetterList}
-    />
+    <MemberLetterListContext.Provider
+      value={{ memberLetterList, setMemberLetterList }}>
+      <Router
+        memberLetterList={toMap(memberLetterList)}
+        setMemberLetterList={setMemberLetterList}
+      />
+    </MemberLetterListContext.Provider>
   );
 }
 
