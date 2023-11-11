@@ -1,6 +1,7 @@
 import {
   KARINA,
   MemberLetterListContext,
+  SelectedMemberContext,
   memberKoreanMap,
   memberList,
 } from "App";
@@ -15,9 +16,13 @@ import defaultAvatar from "../assets/img/default-avatar.png";
 
 // * 페이지와 컨테이너의 역할 동시에 수행
 
-export default function Home({ setMemberLetterList }) {
-  const [selectedMember, setSelectedMember] = useState(KARINA);
-  const { memberLetterList } = useContext(MemberLetterListContext);
+export default function Home() {
+  const { selectedMember, setSelectedMember } = useContext(
+    SelectedMemberContext,
+  );
+  const { memberLetterList, setMemberLetterList } = useContext(
+    MemberLetterListContext,
+  );
 
   const [formState, setFormState] = useState({
     nickname: "",
@@ -63,7 +68,6 @@ export default function Home({ setMemberLetterList }) {
       <Header
         handleSelectMember={handleSelectMember}
         members={members.current}
-        selectedMember={selectedMember}
       />
       <LetterForm
         handleEnrollLetter={handleEnrollLetter}

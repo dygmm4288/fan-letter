@@ -6,15 +6,7 @@ export default function Router({ memberLetterList, setMemberLetterList }) {
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path='/'
-          element={
-            <Home
-              memberLetterList={memberLetterList}
-              setMemberLetterList={setMemberLetterList}
-            />
-          }
-        />
+        <Route path='/' element={<Home />} />
         <Route
           path='/detail/:member/:id'
           element={

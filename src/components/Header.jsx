@@ -1,12 +1,10 @@
-import { memberKoreanMap } from "App";
+import { SelectedMemberContext, memberKoreanMap } from "App";
+import { useContext } from "react";
 import styled from "styled-components";
 import aespa from "../assets/img/aespa.jpg";
 
-export default function Header({
-  handleSelectMember,
-  members,
-  selectedMember,
-}) {
+export default function Header({ handleSelectMember, members }) {
+  const { selectedMember } = useContext(SelectedMemberContext);
   return (
     <StyledHeader>
       <h1>에스파 팬레터 콜렉션</h1>
@@ -15,21 +13,21 @@ export default function Header({
           {members.map((member) => (
             <MemberNavItem
               key={"nav-item/" + member}
-              handleSelectMember={handleSelectMember}
+              handleSelectMember={handleSelectMember(member)}
               member={member}
-              selected={member === selectedMember}
-            />
+              selected={selectedMember === member}>
+              {memberKoreanMap[member]}
+            </MemberNavItem>
           ))}
         </StyledNavList>
       </nav>
     </StyledHeader>
   );
 }
-
-function MemberNavItem({ member, handleSelectMember, selected }) {
+function MemberNavItem({ handleSelectMember, selected, children }) {
   return (
-    <StyledNavListItem onClick={handleSelectMember(member)} selected={selected}>
-      {memberKoreanMap[member]}
+    <StyledNavListItem onClick={handleSelectMember} selected={selected}>
+      {children}
     </StyledNavListItem>
   );
 }

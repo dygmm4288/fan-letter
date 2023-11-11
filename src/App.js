@@ -21,12 +21,13 @@ export const memberEnglishMap = {
 export const memberToEng = (member) => memberEnglishMap[member];
 const FAN_LETTER_KEY = "fan-letter";
 export const MemberLetterListContext = createContext(null);
+export const SelectedMemberContext = createContext(null);
+
 function App() {
   const [memberLetterList, setMemberLetterList] = useState([]);
+  const [selectedMember, setSelectedMember] = useState(KARINA);
 
   useEffect(() => {
-    // ! fake data localStorage에 적용 완료
-
     const localStorageData =
       JSON.parse(localStorage.getItem(FAN_LETTER_KEY)) || [];
     if (localStorageData.length === 0) {
@@ -54,10 +55,13 @@ function App() {
         memberLetterList: toMap(memberLetterList),
         setMemberLetterList,
       }}>
-      <Router
-        memberLetterList={toMap(memberLetterList)}
-        setMemberLetterList={setMemberLetterList}
-      />
+      <SelectedMemberContext.Provider
+        value={{ selectedMember, setSelectedMember }}>
+        <Router
+          memberLetterList={toMap(memberLetterList)}
+          setMemberLetterList={setMemberLetterList}
+        />
+      </SelectedMemberContext.Provider>
     </MemberLetterListContext.Provider>
   );
 }
