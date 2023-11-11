@@ -9,7 +9,6 @@ export default function LetterDetail({
   createdAt,
   writedTo,
   isUpdate,
-  contentRef,
   content,
   handleChangeContent,
   contentValue,
@@ -26,9 +25,10 @@ export default function LetterDetail({
       </StyledDetailHeader>
       <span>To : {memberNameToKorean(writedTo)}</span>
       {!isUpdate ? (
-        <StyledContent ref={contentRef}>{content}</StyledContent>
+        <StyledContent>{content}</StyledContent>
       ) : (
         <StyledContentTextArea
+          maxLength={100}
           onChange={handleChangeContent}
           value={contentValue}
         />

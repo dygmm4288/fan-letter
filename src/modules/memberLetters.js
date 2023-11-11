@@ -2,17 +2,12 @@ import { memberList } from "lib/member";
 
 // 액션 설정 , memberlist에 C -> 추가, R, U , D가 있다.
 const CREATE = "memberLetters/CREATE";
-const READ = "memberLetters/READ";
 const UPDATE = "memberLetters/UPDATE";
 const DELETE = "memberLetters/DELETE";
 // 액션 생성자 설정
 export const createMemberLetter = (memberLetter) => ({
   type: CREATE,
   payload: memberLetter,
-});
-export const readMemberLetter = ({ id, member }) => ({
-  type: READ,
-  payload: { member, id },
 });
 export const updateMemberLetter = ({ id, content }) => ({
   type: UPDATE,
@@ -35,21 +30,25 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case CREATE:
-      return state.memberLetters.concat(action.payload);
-    case READ:
-      return state.memberLetters.find(findLetterById(action.payload));
+      return {
+        memberLetters: state.memberLetters.concat(action.payload.memberLetter),
+      };
     case UPDATE:
-      return state.memberLetters.map(updateLetter(action.payload));
+      return {
+        ...state,
+        memberLetters: state.memberLetters.map(updateLetter(action.payload)),
+      };
     case DELETE:
-      return state.memberLetters.filter(removeLetterById(action.payload));
+      return {
+        ...state,
+        memberLetters: state.memberLetters.filter(
+          removeLetterById(action.payload),
+        ),
+      };
     default:
       return state;
   }
 };
-const findLetterById =
-  ({ id }) =>
-  (letter) =>
-    letter.id === id;
 const removeLetterById =
   ({ id }) =>
   (letter) =>
