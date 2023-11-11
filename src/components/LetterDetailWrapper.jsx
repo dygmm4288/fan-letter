@@ -1,6 +1,5 @@
-import { MemberLetterListContext } from "App";
 import { deleteMemberLetter, updateMemberLetter } from "modules/memberLetters";
-import { useContext, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
@@ -18,7 +17,6 @@ export default function LetterDetailWrapper({
   const [contentValue, setContentValue] = useState(content);
   const contentRef = useRef(null);
   const navigate = useNavigate();
-  const { setMemberLetterList } = useContext(MemberLetterListContext);
 
   const dispatch = useDispatch();
 

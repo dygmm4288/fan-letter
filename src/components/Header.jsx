@@ -1,11 +1,11 @@
-import { SelectedMemberContext } from "App";
 import { memberKoreanMap } from "lib/member";
-import { useContext } from "react";
+import { selectMember } from "modules/selectedMember";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import aespa from "../assets/img/aespa.jpg";
 
 export default function Header({ handleSelectMember, members }) {
-  const { selectedMember } = useContext(SelectedMemberContext);
+  const selectedMember = useSelector(selectMember);
   return (
     <StyledHeader>
       <h1>에스파 팬레터 콜렉션</h1>

@@ -1,11 +1,11 @@
-import { SelectedMemberContext } from "App";
 import Header from "components/Header";
 import LetterForm from "components/LetterForm";
 import LetterList from "components/LetterList";
 import { KARINA, memberList } from "lib/member";
 import { createMemberLetter } from "modules/memberLetters";
-import { useContext, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { selectMember, setSelectedMember } from "modules/selectedMember";
+import { useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { v4 as uuid } from "uuid";
@@ -14,9 +14,8 @@ import defaultAvatar from "../assets/img/default-avatar.png";
 // * 페이지와 컨테이너의 역할 동시에 수행
 
 export default function Home() {
-  const { selectedMember, setSelectedMember } = useContext(
-    SelectedMemberContext,
-  );
+  const selectedMember = useSelector(selectMember);
+
   const dispatch = useDispatch();
 
   const [formState, setFormState] = useState({
@@ -29,7 +28,7 @@ export default function Home() {
   const members = useRef(memberList);
 
   const handleSelectMember = (member) => () => {
-    setSelectedMember(member);
+    dispatch(setSelectedMember(member));
   };
   const handleChangeFormValue = (key) => (value) => {
     setFormState((prev) => ({
