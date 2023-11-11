@@ -1,5 +1,7 @@
 import { MemberLetterListContext } from "App";
+import { deleteMemberLetter, updateMemberLetter } from "modules/memberLetters";
 import { useContext, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 import LetterDetail from "./LetterDetail";
@@ -18,6 +20,8 @@ export default function LetterDetailWrapper({
   const navigate = useNavigate();
   const { setMemberLetterList } = useContext(MemberLetterListContext);
 
+  const dispatch = useDispatch();
+
   const handleUpdateButton = () => setIsUpdate(true);
   const handleUpdateDoneButton = () => {
     setIsUpdate(false);
@@ -25,11 +29,11 @@ export default function LetterDetailWrapper({
       alert("아무런 수정 사항이 없습니다.");
       return;
     }
-    setMemberLetterList((prev) => prev.map(updateLetter(id, contentValue)));
+    dispatch(updateMemberLetter({ id, content: contentValue }));
   };
   const handleRemoveButton = () => {
     if (!window.confirm("정말로 삭제하시겠습니까?")) return;
-    setMemberLetterList((prev) => prev.filter(removeLetter(id)));
+    dispatch(deleteMemberLetter({ id }));
     navigate("/");
   };
   const handleChangeContent = (e) => {
@@ -61,18 +65,4 @@ export default function LetterDetailWrapper({
       writedTo={writedTo}
     />
   );
-}
-function removeLetter(id) {
-  return (letter) => letter.id !== id;
-}
-function updateLetter(id, content) {
-  return (letter) => {
-    if (letter.id === id) {
-      return {
-        ...letter,
-        content,
-      };
-    }
-    return letter;
-  };
 }

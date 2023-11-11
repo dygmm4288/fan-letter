@@ -1,4 +1,5 @@
-import { SelectedMemberContext, memberKoreanMap } from "App";
+import { SelectedMemberContext } from "App";
+import { memberKoreanMap } from "lib/member";
 import { useContext } from "react";
 import styled from "styled-components";
 import aespa from "../assets/img/aespa.jpg";

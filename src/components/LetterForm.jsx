@@ -1,4 +1,4 @@
-import { memberKoreanMap } from "App";
+import { memberKoreanMap } from "lib/member";
 import styled from "styled-components";
 import Button from "./Button";
 

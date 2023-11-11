@@ -1,13 +1,11 @@
-import {
-  KARINA,
-  MemberLetterListContext,
-  SelectedMemberContext,
-  memberList,
-} from "App";
+import { SelectedMemberContext } from "App";
 import Header from "components/Header";
 import LetterForm from "components/LetterForm";
 import LetterList from "components/LetterList";
+import { KARINA, memberList } from "lib/member";
+import { createMemberLetter } from "modules/memberLetters";
 import { useContext, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { v4 as uuid } from "uuid";
@@ -19,7 +17,7 @@ export default function Home() {
   const { selectedMember, setSelectedMember } = useContext(
     SelectedMemberContext,
   );
-  const { setMemberLetterList } = useContext(MemberLetterListContext);
+  const dispatch = useDispatch();
 
   const [formState, setFormState] = useState({
     nickname: "",
@@ -49,7 +47,7 @@ export default function Home() {
       writedTo: formState.selected,
       id: uuid(),
     };
-    setMemberLetterList((prev) => prev.concat(newLetter));
+    dispatch(createMemberLetter({ memberLetter: newLetter }));
     setFormState((prev) => ({
       ...prev,
       nickname: "",

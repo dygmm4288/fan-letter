@@ -1,13 +1,13 @@
-import { MemberLetterListContext } from "App";
 import LetterDetailWrapper from "components/LetterDetailWrapper";
 import { alter } from "lib/alter";
-import { useContext } from "react";
+import { selectMemberLetterList } from "modules/memberLetters";
+import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Detail() {
   const { member, id } = useParams();
-  const { memberLetterList } = useContext(MemberLetterListContext);
+  const memberLetterList = useSelector(selectMemberLetterList);
   const letter = memberLetterList[member].find(findLetterById(id));
   const ifEmptyLetterThan = alter(() => !letter);
 
