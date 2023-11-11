@@ -1,13 +1,23 @@
+import {
+  MemberLetterListContext,
+  SelectedMemberContext,
+  memberNameToKorean,
+} from "App";
 import { alter } from "lib/alter";
+import { useContext } from "react";
 import styled from "styled-components";
 import LetterItem from "./LetterItem";
 
-export default function LetterList({ memberName, letters, handleNavigate }) {
-  const ifEmptyThan = alter(() => letters.length === 0);
+export default function LetterList({ handleNavigate }) {
+  const { selectedMember } = useContext(SelectedMemberContext);
+  const { memberLetterList } = useContext(MemberLetterListContext);
+  const letters = memberLetterList[selectedMember];
+  const ifEmptyThan = alter(() => !letters || letters.length === 0);
+
   return (
     <StyledLetterList>
       {ifEmptyThan(
-        <EmptyLetter memberName={memberName} />,
+        <EmptyLetter memberName={memberNameToKorean(selectedMember)} />,
         <LetterItems letters={letters} handleNavigate={handleNavigate} />,
       )}
     </StyledLetterList>

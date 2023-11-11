@@ -18,6 +18,7 @@ export const memberEnglishMap = {
   지젤: GISELLE,
   닝닝: NINGNING,
 };
+export const memberNameToKorean = (member) => memberKoreanMap[member];
 export const memberToEng = (member) => memberEnglishMap[member];
 const FAN_LETTER_KEY = "fan-letter";
 export const MemberLetterListContext = createContext(null);

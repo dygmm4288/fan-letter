@@ -2,7 +2,6 @@ import {
   KARINA,
   MemberLetterListContext,
   SelectedMemberContext,
-  memberKoreanMap,
   memberList,
 } from "App";
 import Header from "components/Header";
@@ -20,9 +19,7 @@ export default function Home() {
   const { selectedMember, setSelectedMember } = useContext(
     SelectedMemberContext,
   );
-  const { memberLetterList, setMemberLetterList } = useContext(
-    MemberLetterListContext,
-  );
+  const { setMemberLetterList } = useContext(MemberLetterListContext);
 
   const [formState, setFormState] = useState({
     nickname: "",
@@ -75,11 +72,7 @@ export default function Home() {
         handleChangeFormValue={handleChangeFormValue}
         formState={formState}
       />
-      <LetterList
-        memberName={memberKoreanMap[selectedMember]}
-        letters={memberLetterList[selectedMember]}
-        handleNavigate={handleNavigate}
-      />
+      <LetterList handleNavigate={handleNavigate} />
     </StyledHome>
   );
 }

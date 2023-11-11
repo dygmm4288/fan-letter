@@ -77,8 +77,3 @@ const StyledNavListItem = styled.li`
     color: black;
   }
 `;
-
-function tab(x) {
-  console.log(x);
-  return x;
-}
