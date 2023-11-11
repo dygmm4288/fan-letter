@@ -1,21 +1,34 @@
+import { MemberLetterListContext } from "App";
 import LetterDetailWrapper from "components/LetterDetailWrapper";
+import { alter } from "lib/alter";
+import { useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 
-export default function Detail({ memberLetterList, setMemberLetterList }) {
+export default function Detail() {
   const { member, id } = useParams();
-  const findLetterById = () =>
-    memberLetterList[member].find((letter) => letter.id === id);
+  const { memberLetterList } = useContext(MemberLetterListContext);
+  const letter = memberLetterList[member].find(findLetterById(id));
+  const ifEmptyLetterThan = alter(() => !letter);
+
   return (
     <StyledDetail>
       <Link to='/'> 홈으로</Link>
-      <LetterDetailWrapper
-        letters={findLetterById()}
-        setMemberLetterList={setMemberLetterList}
-      />
+      {ifEmptyLetterThan(
+        <EmptyLetterDetail />,
+        <LetterDetailWrapper {...letter} />,
+      )}
     </StyledDetail>
   );
 }
+
+const EmptyLetterDetail = () => {
+  return (
+    <div>
+      <h2>You've taken the wrong path.</h2>
+    </div>
+  );
+};
 
 const StyledDetail = styled.div`
   position: relative;
@@ -44,3 +57,5 @@ const StyledDetail = styled.div`
   align-items: center;
   padding: 1rem;
 `;
+
+const findLetterById = (id) => (letter) => letter.id === id;

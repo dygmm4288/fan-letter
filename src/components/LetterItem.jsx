@@ -10,7 +10,6 @@ export default function LetterItem({
   content,
   avatar,
 }) {
-  console.log({ content, avatar });
   return (
     <li onClick={handleNavigate(id)}>
       <StyledLetterItemWrapper>

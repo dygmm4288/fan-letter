@@ -58,10 +58,7 @@ function App() {
       }}>
       <SelectedMemberContext.Provider
         value={{ selectedMember, setSelectedMember }}>
-        <Router
-          memberLetterList={toMap(memberLetterList)}
-          setMemberLetterList={setMemberLetterList}
-        />
+        <Router />
       </SelectedMemberContext.Provider>
     </MemberLetterListContext.Provider>
   );
