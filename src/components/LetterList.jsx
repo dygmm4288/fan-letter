@@ -4,7 +4,6 @@ import LetterItem from "./LetterItem";
 
 export default function LetterList({ memberName, letters, handleNavigate }) {
   const ifEmptyThan = alter(() => letters.length === 0);
-
   return (
     <StyledLetterList>
       {ifEmptyThan(

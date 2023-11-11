@@ -20,7 +20,7 @@ export const memberEnglishMap = {
 };
 export const memberToEng = (member) => memberEnglishMap[member];
 const FAN_LETTER_KEY = "fan-letter";
-const MemberLetterListContext = createContext(null);
+export const MemberLetterListContext = createContext(null);
 function App() {
   const [memberLetterList, setMemberLetterList] = useState([]);
 
@@ -50,7 +50,10 @@ function App() {
 
   return (
     <MemberLetterListContext.Provider
-      value={{ memberLetterList, setMemberLetterList }}>
+      value={{
+        memberLetterList: toMap(memberLetterList),
+        setMemberLetterList,
+      }}>
       <Router
         memberLetterList={toMap(memberLetterList)}
         setMemberLetterList={setMemberLetterList}
