@@ -1,21 +1,32 @@
+import { alter } from "lib/alter";
 import { memberNameToKorean } from "lib/member";
 import timeFormat from "lib/timeFormat";
 import styled from "styled-components";
 import Avatar from "./Avatar";
+import Button from "./Button";
 
 export default function LetterDetail({
-  nickname,
-  avatar,
-  createdAt,
-  writedTo,
+  letter,
   isUpdate,
-  content,
   handleChangeContent,
   contentValue,
-  UpdateButton,
-  UpdateDoneButton,
-  RemoveButton,
+  handleUpdateButton,
+  handleRemoveButton,
+  handleUpdateDoneButton,
 }) {
+  const { nickname, avatar, createdAt, writedTo, content } = letter;
+  const memberName = memberNameToKorean(writedTo);
+  const UpdateButton = () => (
+    <Button handleClickEvent={handleUpdateButton}>수정</Button>
+  );
+  const RemoveButton = () => (
+    <Button handleClickEvent={handleRemoveButton}>삭제</Button>
+  );
+  const UpdateDoneButton = () => (
+    <Button handleClickEvent={handleUpdateDoneButton}>수정 완료</Button>
+  );
+  const ifIsUpdateThan = alter(() => !isUpdate);
+
   return (
     <StyledDetail>
       <StyledDetailHeader>
@@ -23,18 +34,17 @@ export default function LetterDetail({
         <h2>{nickname}</h2>
         <span>{timeFormat(createdAt)}</span>
       </StyledDetailHeader>
-      <span>To : {memberNameToKorean(writedTo)}</span>
-      {!isUpdate ? (
-        <StyledContent>{content}</StyledContent>
-      ) : (
+      <span>To : {memberName}</span>
+      {ifIsUpdateThan(
+        <StyledContent>{content}</StyledContent>,
         <StyledContentTextArea
           maxLength={100}
           onChange={handleChangeContent}
           value={contentValue}
-        />
+        />,
       )}
       <StyledButtonWrapper>
-        {!isUpdate ? <UpdateButton /> : <UpdateDoneButton />}
+        {ifIsUpdateThan(<UpdateButton />, <UpdateDoneButton />)}
         <RemoveButton />
       </StyledButtonWrapper>
     </StyledDetail>

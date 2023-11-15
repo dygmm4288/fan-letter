@@ -1,4 +1,4 @@
-import LetterDetailWrapper from "components/LetterDetailWrapper";
+import LetterDetailContainer from "containers/LetterDetailContainer";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -6,7 +6,7 @@ export default function Detail() {
   return (
     <StyledDetail>
       <Link to='/'> 홈으로</Link>
-      <LetterDetailWrapper />
+      <LetterDetailContainer />
     </StyledDetail>
   );
 }
