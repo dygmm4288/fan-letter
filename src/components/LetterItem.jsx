@@ -1,6 +1,6 @@
 import timeFormat from "lib/timeFormat";
 import styled from "styled-components";
-import Avatar from "./common/Avatar";
+import Avatar from "./Avatar";
 
 export default function LetterItem({
   handleNavigate,

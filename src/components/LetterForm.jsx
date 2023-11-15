@@ -1,10 +1,6 @@
-import { memberKoreanMap } from "lib/member";
+import { memberKoreanMap } from "App";
 import styled from "styled-components";
-import Button from "./common/Button";
-
-const NICKNAME = "nickname";
-const CONTENT = "content";
-const SELECTED = "selected";
+import Button from "./Button";
 
 export default function LetterForm({
   members,
@@ -13,6 +9,8 @@ export default function LetterForm({
   handleEnrollLetter,
 }) {
   const { nickname, content } = formState;
+  const handleEtargetValue = (key) => (e) =>
+    handleChangeFormValue(key)(e.target.value);
   return (
     <StyledForm onSubmit={handleEnrollLetter}>
       <StyledInputWrapper>
@@ -23,7 +21,7 @@ export default function LetterForm({
             name='content'
             required
             value={nickname}
-            onChange={handleChangeFormValue(NICKNAME)}
+            onChange={handleEtargetValue("nickname")}
             placeholder='최대 20글자까지만 작성할 수 있습니다'
           />
         </StyledRow>
@@ -36,27 +34,24 @@ export default function LetterForm({
             rows='5'
             required
             value={content}
-            onChange={handleChangeFormValue(CONTENT)}
+            onChange={handleEtargetValue("content")}
             maxLength={100}
             placeholder='최대 100자까지만 작성할 수 있습니다.'></textarea>
         </StyledRow>
       </StyledInputWrapper>
-      <StyledSelectWrapper>
+      <div className='select-wrapper'>
         <label htmlFor='select-memeber'>누구에게 보내실 건가요?</label>
-        <select id='select-member' onChange={handleChangeFormValue(SELECTED)}>
-          <SelectOptions members={members} />
+        <select onChange={handleEtargetValue("selected")}>
+          {members.map((member) => (
+            <option key={"option/" + member} value={member}>
+              {memberKoreanMap[member]}
+            </option>
+          ))}
         </select>
-      </StyledSelectWrapper>
+      </div>
       <Button type='submit'>팬레터 등록</Button>
     </StyledForm>
   );
-}
-function SelectOptions({ members }) {
-  return members.map((member) => (
-    <option key={"options-" + member} value={member}>
-      {memberKoreanMap[member]}
-    </option>
-  ));
 }
 
 const StyledForm = styled.form`
@@ -73,12 +68,12 @@ const StyledForm = styled.form`
   button {
     align-self: flex-end;
   }
-  border-radius: 0.5rem;
-`;
-const StyledSelectWrapper = styled.div`
-  label {
+
+  .select-wrapper label {
     margin-right: 1rem;
   }
+
+  border-radius: 0.5rem;
 `;
 const StyledInputWrapper = styled.div`
   display: flex;
