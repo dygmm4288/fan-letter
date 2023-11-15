@@ -1,75 +1,12 @@
-import { KARINA, memberKoreanMap, memberList } from "App";
-import Header from "components/Header";
-import LetterForm from "components/LetterForm";
-import LetterList from "components/LetterList";
-import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import HomeContainer from "containers/HomeContainer";
 import styled from "styled-components";
-import { v4 as uuid } from "uuid";
-import defaultAvatar from "../assets/img/default-avatar.png";
 
 // * 페이지와 컨테이너의 역할 동시에 수행
 
-export default function Home({ memberLetterList, setMemberLetterList }) {
-  const [selectedMember, setSelectedMember] = useState(KARINA);
-
-  const [formState, setFormState] = useState({
-    nickname: "",
-    content: "",
-    selected: KARINA,
-  });
-
-  const navigate = useNavigate();
-  const members = useRef(memberList);
-
-  const handleSelectMember = (member) => () => {
-    setSelectedMember(member);
-  };
-  const handleChangeFormValue = (key) => (value) => {
-    setFormState((prev) => ({
-      ...prev,
-      [key]: value,
-    }));
-  };
-  const handleEnrollLetter = (e) => {
-    e.preventDefault();
-    const newLetter = {
-      createdAt: new Date().toISOString(),
-      nickname: formState.nickname,
-      avatar: defaultAvatar,
-      content: formState.content,
-      writedTo: formState.selected,
-      id: uuid(),
-    };
-    setMemberLetterList((prev) => prev.concat(newLetter));
-    setFormState((prev) => ({
-      ...prev,
-      nickname: "",
-      content: "",
-    }));
-  };
-  const handleNavigate = (id) => () => {
-    navigate(`/detail/${selectedMember}/${id}`);
-  };
-
+export default function Home() {
   return (
     <StyledHome>
-      <Header
-        handleSelectMember={handleSelectMember}
-        members={members.current}
-        selectedMember={selectedMember}
-      />
-      <LetterForm
-        handleEnrollLetter={handleEnrollLetter}
-        members={members.current}
-        handleChangeFormValue={handleChangeFormValue}
-        formState={formState}
-      />
-      <LetterList
-        memberName={memberKoreanMap[selectedMember]}
-        letters={memberLetterList[selectedMember]}
-        handleNavigate={handleNavigate}
-      />
+      <HomeContainer />
     </StyledHome>
   );
 }

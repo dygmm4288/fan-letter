@@ -1,14 +1,21 @@
 import { alter } from "lib/alter";
+import { memberNameToKorean } from "lib/member";
+import { selectMemberLetterList } from "modules/memberLetters";
+import { selectMember } from "modules/selectedMember";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import LetterItem from "./LetterItem";
 
-export default function LetterList({ memberName, letters, handleNavigate }) {
-  const ifEmptyThan = alter(() => letters.length === 0);
+export default function LetterList({ handleNavigate }) {
+  const selectedMember = useSelector(selectMember);
+  const memberLetterList = useSelector(selectMemberLetterList);
+  const letters = memberLetterList[selectedMember];
+  const ifEmptyThan = alter(() => !letters || letters.length === 0);
 
   return (
     <StyledLetterList>
       {ifEmptyThan(
-        <EmptyLetter memberName={memberName} />,
+        <EmptyLetter memberName={memberNameToKorean(selectedMember)} />,
         <LetterItems letters={letters} handleNavigate={handleNavigate} />,
       )}
     </StyledLetterList>
