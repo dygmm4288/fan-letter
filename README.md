@@ -1,70 +1,39 @@
-# Getting Started with Create React App
+# 내일 배움 캠프 개인 과제 : 팬 래터 홈페이지
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+리액트로 만든 걸그룹 에스파 팬 레터함
 
-## Available Scripts
+# 주요 기능
 
-In the project directory, you can run:
+- react-router-dom을 이용한 SPA (Home, Detail)
+- Home 페이지 : 각 멤버별 응원 메시지 작성, 간단한 팬래터 확인 가능
+- Detail 페이지 : 각 팬레터 내용을 수정 및 삭제할 수 있는 페이지
 
-### `yarn start`
+# 구현 사항
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Props driling, Context API, Redux를 이용한 각각의 전역 상태 관리
+- 팬래터 CRUD 구현 (작성, 조회, 수정, 삭제)
+  - 아티스트 별 게시물 조회 기능 구현
+    - 팬래터가 없을 경우 비어있는 팬래터라고 표시
+  - 팬레터 상세 화면 구현
+  - 팬래터 내용 수정 구현
+    - 업데이트 된 내용이 없다면 alert창이 뜨면서 수정이 안됨
+  - 팬래터 삭제 구현
+    - 삭제 시 바로 삭제가 아닌 confirm을 통해서 삭제를 되도록 구현
+- styled-components를 이용한 스타일링
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# 구현 시 고려 사항
 
-### `yarn test`
+- 삼항 연산자 대신 함수 사용으로 가독성 향상 의도
+  ![삼항연산자를 함수를 이용해서 구현](./readmeAssets/conditional-operator.png)
+- 공통 버튼, 공통 아바타를 통한 재사용성 향상 의도
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  - 랜더 속성값을 이용한 컴포넌트 가독성 향상 의도
+    ![Alt text](./readmeAssets/Button.png)
+    ![Alt text](./readmeAssets/Avatar.png)
 
-### `yarn build`
+- 컨테이너 컴포넌트, 프레젠테이션 컴포넌트 분리
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# 페이지 스크린샷
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![Alt text](./readmeAssets/page.png)
+![Alt text](./readmeAssets/page2.png)
