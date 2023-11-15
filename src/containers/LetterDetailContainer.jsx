@@ -1,3 +1,4 @@
+import EmptyLetterDetail from "components/EmptyLetterDetail";
 import { alter } from "lib/alter";
 import {
   deleteMemberLetter,
@@ -7,19 +8,16 @@ import {
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import Button from "./Button";
-import LetterDetail from "./LetterDetail";
+import LetterDetail from "../components/LetterDetail";
 
-export default function LetterDetailWrapper() {
+export default function LetterDetailContainer() {
   const { member, id } = useParams();
   const memberLetterList = useSelector(selectMemberLetterList);
   const letter = memberLetterList[member].find(findLetterById(id));
-  const ifEmptyLetterThan = alter(() => !letter);
-
   const [isUpdate, setIsUpdate] = useState(false);
   const [contentValue, setContentValue] = useState(letter.content);
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleUpdateButton = () => setIsUpdate(true);
@@ -39,34 +37,19 @@ export default function LetterDetailWrapper() {
   const handleChangeContent = (e) => {
     setContentValue(e.target.value);
   };
-  const UpdateButton = () => (
-    <Button handleClickEvent={handleUpdateButton}>수정</Button>
-  );
-  const RemoveButton = () => (
-    <Button handleClickEvent={handleRemoveButton}>삭제</Button>
-  );
-  const UpdateDoneButton = () => (
-    <Button handleClickEvent={handleUpdateDoneButton}>수정 완료</Button>
-  );
-
+  const ifEmptyLetterThan = alter(() => !letter);
   return ifEmptyLetterThan(
     <EmptyLetterDetail />,
     <LetterDetail
-      {...letter}
-      RemoveButton={RemoveButton}
-      UpdateButton={UpdateButton}
-      UpdateDoneButton={UpdateDoneButton}
+      letter={letter}
       handleChangeContent={handleChangeContent}
       isUpdate={isUpdate}
       contentValue={contentValue}
+      handleRemoveButton={handleRemoveButton}
+      handleUpdateButton={handleUpdateButton}
+      handleUpdateDoneButton={handleUpdateDoneButton}
     />,
   );
 }
-const EmptyLetterDetail = () => {
-  return (
-    <div>
-      <h2>You've taken the wrong path.</h2>
-    </div>
-  );
-};
+
 const findLetterById = (id) => (letter) => letter.id === id;

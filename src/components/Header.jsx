@@ -16,19 +16,19 @@ export default function Header({ handleSelectMember, members }) {
               key={"nav-item/" + member}
               handleSelectMember={handleSelectMember(member)}
               member={member}
-              selected={selectedMember === member}>
-              {memberKoreanMap[member]}
-            </MemberNavItem>
+              selected={selectedMember === member}
+              text={memberKoreanMap[member]}
+            />
           ))}
         </StyledNavList>
       </nav>
     </StyledHeader>
   );
 }
-function MemberNavItem({ handleSelectMember, selected, children }) {
+function MemberNavItem({ handleSelectMember, selected, text }) {
   return (
     <StyledNavListItem onClick={handleSelectMember} selected={selected}>
-      {children}
+      {text}
     </StyledNavListItem>
   );
 }
