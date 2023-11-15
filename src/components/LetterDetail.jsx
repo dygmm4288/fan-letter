@@ -2,8 +2,8 @@ import { alter } from "lib/alter";
 import { memberNameToKorean } from "lib/member";
 import timeFormat from "lib/timeFormat";
 import styled from "styled-components";
-import Avatar from "./Avatar";
-import Button from "./Button";
+import Avatar from "./common/Avatar";
+import Button from "./common/Button";
 
 export default function LetterDetail({
   letter,

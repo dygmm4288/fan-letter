@@ -1,6 +1,6 @@
 import { memberKoreanMap } from "lib/member";
 import styled from "styled-components";
-import Button from "./Button";
+import Button from "./common/Button";
 
 const NICKNAME = "nickname";
 const CONTENT = "content";
