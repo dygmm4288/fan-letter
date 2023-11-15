@@ -1,11 +1,12 @@
-import { memberKoreanMap } from "lib/member";
-import { selectMember } from "modules/selectedMember";
-import { useSelector } from "react-redux";
+import { memberKoreanMap } from "App";
 import styled from "styled-components";
 import aespa from "../assets/img/aespa.jpg";
 
-export default function Header({ handleSelectMember, members }) {
-  const selectedMember = useSelector(selectMember);
+export default function Header({
+  handleSelectMember,
+  members,
+  selectedMember,
+}) {
   return (
     <StyledHeader>
       <h1>에스파 팬레터 콜렉션</h1>
@@ -14,10 +15,9 @@ export default function Header({ handleSelectMember, members }) {
           {members.map((member) => (
             <MemberNavItem
               key={"nav-item/" + member}
-              handleSelectMember={handleSelectMember(member)}
+              handleSelectMember={handleSelectMember}
               member={member}
-              selected={selectedMember === member}
-              text={memberKoreanMap[member]}
+              selected={member === selectedMember}
             />
           ))}
         </StyledNavList>
@@ -25,10 +25,11 @@ export default function Header({ handleSelectMember, members }) {
     </StyledHeader>
   );
 }
-function MemberNavItem({ handleSelectMember, selected, text }) {
+
+function MemberNavItem({ member, handleSelectMember, selected }) {
   return (
-    <StyledNavListItem onClick={handleSelectMember} selected={selected}>
-      {text}
+    <StyledNavListItem onClick={handleSelectMember(member)} selected={selected}>
+      {memberKoreanMap[member]}
     </StyledNavListItem>
   );
 }
@@ -78,3 +79,8 @@ const StyledNavListItem = styled.li`
     color: black;
   }
 `;
+
+function tab(x) {
+  console.log(x);
+  return x;
+}
