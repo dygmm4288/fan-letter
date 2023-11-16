@@ -22,7 +22,7 @@ export const deleteMemberLetter = ({ id }) => ({
 });
 
 // 초기 state 값
-const FAN_LETTER_KEY = "fan-letter";
+export const FAN_LETTER_KEY = "fan-letter";
 const initialState = {
   memberLetters: (function () {
     return JSON.parse(localStorage.getItem(FAN_LETTER_KEY)) || [];
@@ -35,7 +35,7 @@ const reducer = createReducer(initialState, {
     const newLetter = {
       nickname,
       content,
-      selected,
+      writedTo: selected,
       id: uuid(),
       avatar: defaultAvatar,
       createdAt: new Date().toISOString(),
