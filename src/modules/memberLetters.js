@@ -1,3 +1,4 @@
+import createReducer from "lib/createReducer";
 import { memberList } from "lib/member";
 import { v4 as uuid } from "uuid";
 import defaultAvatar from "../assets/img/default-avatar.png";
@@ -7,9 +8,9 @@ const CREATE = "memberLetters/CREATE";
 const UPDATE = "memberLetters/UPDATE";
 const DELETE = "memberLetters/DELETE";
 // 액션 생성자 설정
-export const createMemberLetter = (payload) => ({
+export const createMemberLetter = ({ nickname, content, selected }) => ({
   type: CREATE,
-  payload,
+  payload: { nickname, content, selected },
 });
 export const updateMemberLetter = ({ id, content }) => ({
   type: UPDATE,
@@ -21,7 +22,6 @@ export const deleteMemberLetter = ({ id }) => ({
 });
 
 // 초기 state 값
-// TODO: 비동기 함수를 이용해서 데이터를 가져와서 적용하는 것도 추가해야함
 const FAN_LETTER_KEY = "fan-letter";
 const initialState = {
   memberLetters: (function () {
@@ -29,41 +29,35 @@ const initialState = {
   })(),
 };
 // reducer 생성
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case CREATE:
-      const { nickname, content, selected } = action.payload;
-      const newLetter = {
-        nickname,
-        content,
-        selected,
-        id: uuid(),
-        avatar: defaultAvatar,
-        createdAt: new Date().toISOString(),
-      };
-      return {
-        memberLetters: state.memberLetters.concat(newLetter),
-      };
-    case UPDATE:
-      return {
-        ...state,
-        memberLetters: state.memberLetters.map(updateLetter(action.payload)),
-      };
-    case DELETE:
-      return {
-        ...state,
-        memberLetters: state.memberLetters.filter(
-          removeLetterById(action.payload),
-        ),
-      };
-    default:
-      return state;
-  }
-};
-const removeLetterById =
-  ({ id }) =>
-  (letter) =>
-    letter.id !== id;
+const reducer = createReducer(initialState, {
+  [CREATE]: (state, payload) => {
+    const { nickname, content, selected } = payload;
+    const newLetter = {
+      nickname,
+      content,
+      selected,
+      id: uuid(),
+      avatar: defaultAvatar,
+      createdAt: new Date().toISOString(),
+    };
+    return {
+      memberLetters: state.memberLetters.concat(newLetter),
+    };
+  },
+  [UPDATE]: (state, payload) => {
+    return {
+      memberLetters: state.memberLetters.map(updateLetter(payload)),
+    };
+  },
+  [DELETE]: (state, payload) => {
+    const { id } = payload;
+    return {
+      memberLetters: state.memberLetters.filter(removeLetterById(id)),
+    };
+  },
+});
+
+const removeLetterById = (id) => (letter) => letter.id !== id;
 const updateLetter = ({ id, content }) => {
   return (letter) => {
     if (letter.id === id) {
@@ -88,5 +82,6 @@ function toMap(letters) {
 }
 export const selectMemberLetterList = (store) =>
   toMap(store.memberLettersReducer.memberLetters);
+export const findLetterById = (id) => (letter) => letter.id === id;
 
 export default reducer;

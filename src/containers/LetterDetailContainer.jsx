@@ -2,6 +2,7 @@ import EmptyLetterDetail from "components/EmptyLetterDetail";
 import { alter } from "lib/alter";
 import {
   deleteMemberLetter,
+  findLetterById,
   selectMemberLetterList,
   updateMemberLetter,
 } from "modules/memberLetters";
@@ -51,5 +52,3 @@ export default function LetterDetailContainer() {
     />,
   );
 }
-
-const findLetterById = (id) => (letter) => letter.id === id;
