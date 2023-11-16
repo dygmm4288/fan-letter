@@ -1,13 +1,15 @@
 import { memberList } from "lib/member";
+import { v4 as uuid } from "uuid";
+import defaultAvatar from "../assets/img/default-avatar.png";
 
 // 액션 설정 , memberlist에 C -> 추가, R, U , D가 있다.
 const CREATE = "memberLetters/CREATE";
 const UPDATE = "memberLetters/UPDATE";
 const DELETE = "memberLetters/DELETE";
 // 액션 생성자 설정
-export const createMemberLetter = (memberLetter) => ({
+export const createMemberLetter = (payload) => ({
   type: CREATE,
-  payload: memberLetter,
+  payload,
 });
 export const updateMemberLetter = ({ id, content }) => ({
   type: UPDATE,
@@ -30,8 +32,17 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case CREATE:
+      const { nickname, content, selected } = action.payload;
+      const newLetter = {
+        nickname,
+        content,
+        selected,
+        id: uuid(),
+        avatar: defaultAvatar,
+        createdAt: new Date().toISOString(),
+      };
       return {
-        memberLetters: state.memberLetters.concat(action.payload.memberLetter),
+        memberLetters: state.memberLetters.concat(newLetter),
       };
     case UPDATE:
       return {

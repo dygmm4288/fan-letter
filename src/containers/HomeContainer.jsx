@@ -7,8 +7,6 @@ import { selectMember, setSelectedMember } from "modules/selectedMember";
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { v4 as uuid } from "uuid";
-import defaultAvatar from "../assets/img/default-avatar.png";
 
 export default function HomeContainer() {
   const [formState, setFormState] = useState({
@@ -33,20 +31,8 @@ export default function HomeContainer() {
   };
   const handleEnrollLetter = (e) => {
     e.preventDefault();
-    const newLetter = {
-      createdAt: new Date().toISOString(),
-      nickname: formState.nickname,
-      avatar: defaultAvatar,
-      content: formState.content,
-      writedTo: formState.selected,
-      id: uuid(),
-    };
-    dispatch(createMemberLetter({ memberLetter: newLetter }));
-    setFormState((prev) => ({
-      ...prev,
-      nickname: "",
-      content: "",
-    }));
+    dispatch(createMemberLetter({ ...formState }));
+    setFormState({ nickname: "", content: "", selected: formState.selected });
   };
   const handleNavigate = (id) => () => {
     navigate(`/detail/${selectedMember}/${id}`);
