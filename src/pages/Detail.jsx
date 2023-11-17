@@ -1,12 +1,26 @@
+import EmptyLetterDetail from "components/EmptyLetterDetail";
 import LetterDetailContainer from "containers/LetterDetailContainer";
-import { Link } from "react-router-dom";
+import { alter } from "lib/alter";
+import { findLetterById, selectMemberLetterList } from "modules/memberLetters";
+import { useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Detail() {
+  const { member, id } = useParams();
+  const memberLetterList = useSelector(selectMemberLetterList);
+  const letter =
+    memberLetterList[member] &&
+    memberLetterList[member].find(findLetterById(id));
+  const ifEmptyLetterThan = alter(() => !letter);
+
   return (
     <StyledDetail>
       <Link to='/'> 홈으로</Link>
-      <LetterDetailContainer />
+      {ifEmptyLetterThan(
+        <EmptyLetterDetail />,
+        <LetterDetailContainer letter={letter} id={id} />,
+      )}
     </StyledDetail>
   );
 }
