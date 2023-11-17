@@ -1,6 +1,8 @@
 import { alter } from "lib/alter";
 import { memberNameToKorean } from "lib/member";
 import timeFormat from "lib/timeFormat";
+import { IS_CONFIRM, setModalState } from "modules/modal";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import Avatar from "./common/Avatar";
 import Button from "./common/Button";
@@ -11,16 +13,21 @@ export default function LetterDetail({
   handleChangeContent,
   contentValue,
   handleUpdateButton,
-  handleRemoveButton,
   handleUpdateDoneButton,
 }) {
   const { nickname, avatar, createdAt, writedTo, content } = letter;
   const memberName = memberNameToKorean(writedTo);
+  const dispatch = useDispatch();
   const UpdateButton = () => (
     <Button handleClickEvent={handleUpdateButton}>수정</Button>
   );
   const RemoveButton = () => (
-    <Button handleClickEvent={handleRemoveButton}>삭제</Button>
+    <Button
+      handleClickEvent={() => {
+        dispatch(setModalState({ key: IS_CONFIRM, value: true }));
+      }}>
+      삭제
+    </Button>
   );
   const UpdateDoneButton = () => (
     <Button handleClickEvent={handleUpdateDoneButton}>수정 완료</Button>
