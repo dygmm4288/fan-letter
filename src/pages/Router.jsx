@@ -8,6 +8,7 @@ export default function Router() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/detail/:member/:id' element={<Detail />} />
+        <Route path='*' element={<Detail />} />
       </Routes>
     </BrowserRouter>
   );
