@@ -7,11 +7,11 @@ import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Detail() {
-  const { member, id } = useParams();
+  const { memberName, id } = useParams();
   const memberLetterList = useSelector(selectMemberLetterList);
   const letter =
-    memberLetterList[member] &&
-    memberLetterList[member].find(findLetterById(id));
+    memberLetterList[memberName] &&
+    memberLetterList[memberName].find(findLetterById(id));
   const ifEmptyLetterThan = alter(() => !letter);
 
   return (
