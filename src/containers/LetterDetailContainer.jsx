@@ -25,12 +25,13 @@ export default function LetterDetailContainer({ letter, id }) {
   const handleUpdateButton = () => setIsUpdate(true);
 
   const handleUpdateDoneButton = () => {
-    setIsUpdate(false);
     if (contentValue === letter.content) {
       dispatch(setModalState({ key: IS_ALERT, value: true }));
       return;
     }
     dispatch(updateMemberLetter({ id, content: contentValue }));
+    letter.content = contentValue;
+    setIsUpdate(false);
   };
   const handleRemoveButton = () => {
     dispatch(deleteMemberLetter({ id }));
