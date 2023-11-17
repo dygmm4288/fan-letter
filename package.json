@@ -16,6 +16,9 @@
     "uuid": "^9.0.1",
     "web-vitals": "^2.1.0"
   },
+  "devDependencies": {
+    "redux-devtools-extension": "^2.13.9"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
