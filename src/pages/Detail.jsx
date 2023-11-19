@@ -1,22 +1,22 @@
-import { MemberLetterListContext } from "App";
 import LetterDetailWrapper from "components/LetterDetailWrapper";
-import { alter } from "lib/alter";
-import { useContext } from "react";
+import { useRoot } from "contexts/root.context";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Detail() {
-  const { member, id } = useParams();
-  const { memberLetterList } = useContext(MemberLetterListContext);
-  const letter = memberLetterList[member].find(findLetterById(id));
-  const ifEmptyLetterThan = alter(() => !letter);
+  const { letterId } = useParams();
+
+  const { allLetters } = useRoot();
+
+  const currentLetter = allLetters.find((letter) => letter.id === letterId);
 
   return (
     <StyledDetail>
-      <Link to='/'> 홈으로</Link>
-      {ifEmptyLetterThan(
-        <EmptyLetterDetail />,
-        <LetterDetailWrapper {...letter} />,
+      <Link to="/"> 홈으로</Link>
+      {!!currentLetter ? (
+        <LetterDetailWrapper {...currentLetter} />
+      ) : (
+        <EmptyLetterDetail />
       )}
     </StyledDetail>
   );

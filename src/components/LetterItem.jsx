@@ -1,22 +1,29 @@
 import timeFormat from "lib/timeFormat";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Avatar from "./Avatar";
 
 export default function LetterItem({
-  handleNavigate,
   id,
-  createdAt,
+  memberName,
   nickname,
   content,
-  avatar,
+  createdAt,
+  updatedAt,
 }) {
+  const navigate = useNavigate();
+
+  const handleClickLetter = () => {
+    navigate("/letters/" + id);
+  };
+
   return (
-    <li onClick={handleNavigate(id)}>
+    <li onClick={handleClickLetter}>
       <StyledLetterItemWrapper>
-        <Avatar src={avatar} alt={nickname + "user avatar profile"} />
         <StyledLetterItemInfo>
-          <span>{nickname}</span>
-          <span>{timeFormat(createdAt)}</span>
+          <span>작성자: {nickname}</span>
+          <span>For: {memberName}</span>
+          <span>작성일: {timeFormat(createdAt)}</span>
+          <span>수정일: {timeFormat(updatedAt)}</span>
           <span>{content}</span>
         </StyledLetterItemInfo>
       </StyledLetterItemWrapper>

@@ -1,7 +1,4 @@
-import { memberNameToKorean } from "App";
-import timeFormat from "lib/timeFormat";
 import styled from "styled-components";
-import Avatar from "./Avatar";
 
 export default function LetterDetail({
   nickname,
@@ -19,7 +16,7 @@ export default function LetterDetail({
 }) {
   return (
     <StyledDetail>
-      <StyledDetailHeader>
+      {/* <StyledDetailHeader>
         <Avatar nickname={nickname} src={avatar} />
         <h2>{nickname}</h2>
         <span>{timeFormat(createdAt)}</span>
@@ -36,7 +33,7 @@ export default function LetterDetail({
       <StyledButtonWrapper>
         {!isUpdate ? <UpdateButton /> : <UpdateDoneButton />}
         <RemoveButton />
-      </StyledButtonWrapper>
+      </StyledButtonWrapper> */}
     </StyledDetail>
   );
 }

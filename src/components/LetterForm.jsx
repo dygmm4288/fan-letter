@@ -1,55 +1,50 @@
-import { memberKoreanMap } from "App";
+import { useRoot } from "contexts/root.context";
+import { useState } from "react";
 import styled from "styled-components";
 import Button from "./Button";
 
-export default function LetterForm({
-  members,
-  formState,
-  handleChangeFormValue,
-  handleEnrollLetter,
-}) {
-  const { nickname, content } = formState;
-  const handleEtargetValue = (key) => (e) =>
-    handleChangeFormValue(key)(e.target.value);
+export default function LetterForm() {
+  const { addNewLetter } = useRoot();
+  const [nickname, setNickname] = useState("");
+  const [content, setContent] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const newLetter = {
+      nickname,
+      content,
+    };
+    addNewLetter(newLetter);
+  };
+
   return (
-    <StyledForm onSubmit={handleEnrollLetter}>
+    <StyledForm onSubmit={handleSubmit}>
       <StyledInputWrapper>
         <StyledRow>
-          <label htmlFor='nickname'>닉네임: </label>
+          <label htmlFor="nickname">닉네임: </label>
           <input
-            id='nickname'
-            name='content'
             required
             value={nickname}
-            onChange={handleEtargetValue("nickname")}
-            placeholder='최대 20글자까지만 작성할 수 있습니다'
+            onChange={(e) => setNickname(e.currentTarget.value)}
+            placeholder="최대 20글자까지만 작성할 수 있습니다"
           />
         </StyledRow>
         <StyledRow>
-          <label htmlFor='content'>내용:</label>
+          <label htmlFor="content">내용:</label>
           <textarea
-            name='content'
-            id='content'
-            cols='20'
-            rows='5'
-            required
             value={content}
-            onChange={handleEtargetValue("content")}
+            onChange={(e) => setContent(e.currentTarget.value)}
+            cols="20"
+            rows="5"
+            required
             maxLength={100}
-            placeholder='최대 100자까지만 작성할 수 있습니다.'></textarea>
+            placeholder="최대 100자까지만 작성할 수 있습니다."
+          ></textarea>
         </StyledRow>
       </StyledInputWrapper>
-      <div className='select-wrapper'>
-        <label htmlFor='select-memeber'>누구에게 보내실 건가요?</label>
-        <select onChange={handleEtargetValue("selected")}>
-          {members.map((member) => (
-            <option key={"option/" + member} value={member}>
-              {memberKoreanMap[member]}
-            </option>
-          ))}
-        </select>
-      </div>
-      <Button type='submit'>팬레터 등록</Button>
+
+      <Button type="submit">팬레터 등록</Button>
     </StyledForm>
   );
 }
@@ -98,3 +93,16 @@ const StyledRow = styled.div`
     resize: none;
   }
 `;
+
+// const [formState, setFormState] = useState({
+//   nickname: "",
+//   content: "",
+//   selected: KARINA,
+// });
+
+// const handleChangeFormValue = (key) => (value) => {
+//   setFormState((prev) => ({
+//     ...prev,
+//     [key]: value,
+//   }));
+// };
