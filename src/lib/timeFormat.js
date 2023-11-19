@@ -1,7 +1,6 @@
-export default function timeFormat(timeString) {
+export default function timeFormat(time) {
   try {
-    let today = new Date(timeString);
-
+    let today = new Date(time);
     let year = String(today.getFullYear()).slice(2); // 년도
     let month = String(today.getMonth() + 1).padStart(2, "0"); // 월
     let date = String(today.getDate()).padStart(2, "0"); // 날짜
@@ -13,7 +12,7 @@ export default function timeFormat(timeString) {
 
     return `${year}.${month}.${date}. ${unit} ${hours}:${minutes}:${seconds}`;
   } catch {
-    console.error("not valid time stirng");
+    console.error("not valid time");
     return null;
   }
 }

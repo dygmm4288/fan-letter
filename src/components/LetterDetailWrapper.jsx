@@ -1,5 +1,5 @@
-import { MemberLetterListContext } from "App";
-import { useContext, useRef, useState } from "react";
+import { useLetter } from "contexts/letter.context";
+import { memo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 import LetterDetail from "./LetterDetail";
@@ -12,11 +12,11 @@ export default function LetterDetailWrapper({
   avatar,
   id,
 }) {
+  const { updateLetter, deleteLetter } = useLetter();
   const [isUpdate, setIsUpdate] = useState(false);
   const [contentValue, setContentValue] = useState(content);
   const contentRef = useRef(null);
   const navigate = useNavigate();
-  const { setMemberLetterList } = useContext(MemberLetterListContext);
 
   const handleUpdateButton = () => setIsUpdate(true);
   const handleUpdateDoneButton = () => {
@@ -25,25 +25,25 @@ export default function LetterDetailWrapper({
       alert("아무런 수정 사항이 없습니다.");
       return;
     }
-    setMemberLetterList((prev) => prev.map(updateLetter(id, contentValue)));
+    updateLetter({ id, content: contentValue });
   };
   const handleRemoveButton = () => {
     if (!window.confirm("정말로 삭제하시겠습니까?")) return;
-    setMemberLetterList((prev) => prev.filter(removeLetter(id)));
+    deleteLetter({ id });
     navigate("/");
   };
   const handleChangeContent = (e) => {
     setContentValue(e.target.value);
   };
-  const UpdateButton = () => (
+  const UpdateButton = memo(() => (
     <Button handleClickEvent={handleUpdateButton}>수정</Button>
-  );
-  const RemoveButton = () => (
+  ));
+  const RemoveButton = memo(() => (
     <Button handleClickEvent={handleRemoveButton}>삭제</Button>
-  );
-  const UpdateDoneButton = () => (
+  ));
+  const UpdateDoneButton = memo(() => (
     <Button handleClickEvent={handleUpdateDoneButton}>수정 완료</Button>
-  );
+  ));
 
   return (
     <LetterDetail
@@ -64,15 +64,4 @@ export default function LetterDetailWrapper({
 }
 function removeLetter(id) {
   return (letter) => letter.id !== id;
-}
-function updateLetter(id, content) {
-  return (letter) => {
-    if (letter.id === id) {
-      return {
-        ...letter,
-        content,
-      };
-    }
-    return letter;
-  };
 }

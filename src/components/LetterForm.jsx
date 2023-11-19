@@ -1,28 +1,43 @@
-import { memberKoreanMap } from "App";
+import { useLetter } from "contexts/letter.context";
+import { memberKoreanMap, memberNames } from "data/member";
+import { useState } from "react";
 import styled from "styled-components";
 import Button from "./Button";
 
-export default function LetterForm({
-  members,
-  formState,
-  handleChangeFormValue,
-  handleEnrollLetter,
-}) {
-  const { nickname, content } = formState;
-  const handleEtargetValue = (key) => (e) =>
-    handleChangeFormValue(key)(e.target.value);
+export default function LetterForm() {
+  const { addNewLetter, selectMember, selectedMemberName } = useLetter();
+  const [formState, setFormState] = useState({
+    nickname: "",
+    content: "",
+  });
+
+  const handleChangeFormState = (e) => {
+    const { name, value } = e.currentTarget;
+    setFormState({ ...formState, [name]: value });
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const newLetter = {
+      ...formState,
+    };
+
+    addNewLetter(newLetter);
+    setFormState({ ...formState, nickname: "", content: "" });
+  };
+
   return (
-    <StyledForm onSubmit={handleEnrollLetter}>
+    <StyledForm onSubmit={handleSubmit}>
       <StyledInputWrapper>
         <StyledRow>
           <label htmlFor='nickname'>닉네임: </label>
           <input
             id='nickname'
-            name='content'
-            required
-            value={nickname}
-            onChange={handleEtargetValue("nickname")}
+            name='nickname'
+            value={formState.nickname}
+            onChange={handleChangeFormState}
             placeholder='최대 20글자까지만 작성할 수 있습니다'
+            required
           />
         </StyledRow>
         <StyledRow>
@@ -33,18 +48,20 @@ export default function LetterForm({
             cols='20'
             rows='5'
             required
-            value={content}
-            onChange={handleEtargetValue("content")}
+            value={formState.content}
+            onChange={handleChangeFormState}
             maxLength={100}
             placeholder='최대 100자까지만 작성할 수 있습니다.'></textarea>
         </StyledRow>
       </StyledInputWrapper>
       <div className='select-wrapper'>
-        <label htmlFor='select-memeber'>누구에게 보내실 건가요?</label>
-        <select onChange={handleEtargetValue("selected")}>
-          {members.map((member) => (
-            <option key={"option/" + member} value={member}>
-              {memberKoreanMap[member]}
+        <label htmlFor='select-member'>누구에게 보내실 건가요?</label>
+        <select
+          value={selectedMemberName}
+          onChange={(e) => selectMember(e.target.value)}>
+          {memberNames.map((memberName) => (
+            <option key={"option/" + memberName} value={memberName}>
+              {memberKoreanMap[memberName]}
             </option>
           ))}
         </select>

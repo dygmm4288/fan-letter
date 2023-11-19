@@ -1,46 +1,28 @@
-import {
-  MemberLetterListContext,
-  SelectedMemberContext,
-  memberNameToKorean,
-} from "App";
-import { alter } from "lib/alter";
-import { useContext } from "react";
+import { useLetter } from "contexts/letter.context";
 import styled from "styled-components";
 import LetterItem from "./LetterItem";
 
 export default function LetterList({ handleNavigate }) {
-  const { selectedMember } = useContext(SelectedMemberContext);
-  const { memberLetterList } = useContext(MemberLetterListContext);
-  const letters = memberLetterList[selectedMember];
-  const ifEmptyThan = alter(() => !letters || letters.length === 0);
+  const { lettersForSelectedMember } = useLetter();
 
   return (
     <StyledLetterList>
-      {ifEmptyThan(
-        <EmptyLetter memberName={memberNameToKorean(selectedMember)} />,
-        <LetterItems letters={letters} handleNavigate={handleNavigate} />,
+      {lettersForSelectedMember.length === 0 ? (
+        <EmptyLetter />
+      ) : (
+        lettersForSelectedMember.map((letter) => (
+          <LetterItem key={letter.id} {...letter} />
+        ))
       )}
     </StyledLetterList>
   );
 }
-function LetterItems({ letters, handleNavigate }) {
-  return (
-    <>
-      {letters.map((letter) => (
-        <LetterItem
-          key={"letter/" + letter.id}
-          {...letter}
-          handleNavigate={handleNavigate}
-        />
-      ))}
-    </>
-  );
-}
-function EmptyLetter({ memberName }) {
+function EmptyLetter() {
+  const { selectedMemberName } = useLetter();
   return (
     <StyledEmptyLetter>
-      {memberName}에게 남겨진 팬래터가 없습니다. 첫 번째 팬래터의 주인공이
-      되주세요!
+      {selectedMemberName}에게 남겨진 팬래터가 없습니다. 첫 번째 팬래터의
+      주인공이 되주세요!
     </StyledEmptyLetter>
   );
 }

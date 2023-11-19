@@ -1,34 +1,26 @@
-import { SelectedMemberContext, memberKoreanMap } from "App";
-import { useContext } from "react";
+import { useLetter } from "contexts/letter.context";
+import { memberNameToKorean, memberNames } from "data/member";
 import styled from "styled-components";
 import aespa from "../assets/img/aespa.jpg";
 
-export default function Header({ handleSelectMember, members }) {
-  const { selectedMember } = useContext(SelectedMemberContext);
+export default function Header() {
+  const { selectedMemberName, selectMember } = useLetter();
   return (
     <StyledHeader>
       <h1>에스파 팬레터 콜렉션</h1>
       <nav>
         <StyledNavList>
-          {members.map((member) => (
-            <MemberNavItem
-              key={"nav-item/" + member}
-              handleSelectMember={handleSelectMember(member)}
-              member={member}
-              selected={selectedMember === member}>
-              {memberKoreanMap[member]}
-            </MemberNavItem>
+          {memberNames.map((memberName) => (
+            <StyledNavItem
+              key={memberName}
+              onClick={() => selectMember(memberName)}
+              selected={selectedMemberName === memberName}>
+              {memberNameToKorean(memberName)}
+            </StyledNavItem>
           ))}
         </StyledNavList>
       </nav>
     </StyledHeader>
-  );
-}
-function MemberNavItem({ handleSelectMember, selected, children }) {
-  return (
-    <StyledNavListItem onClick={handleSelectMember} selected={selected}>
-      {children}
-    </StyledNavListItem>
   );
 }
 
@@ -65,7 +57,7 @@ const StyledNavList = styled.ul`
 
   border-radius: 0.5rem;
 `;
-const StyledNavListItem = styled.li`
+const StyledNavItem = styled.li`
   background-color: ${(props) => (props.selected ? "yellow" : "black")};
   color: ${(props) => (props.selected ? "black" : "white")};
   border-radius: 0.5rem;

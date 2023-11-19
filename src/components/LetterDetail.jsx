@@ -1,4 +1,4 @@
-import { memberNameToKorean } from "App";
+import { memberNameToKorean } from "data/member";
 import timeFormat from "lib/timeFormat";
 import styled from "styled-components";
 import Avatar from "./Avatar";
