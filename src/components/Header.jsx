@@ -6,6 +6,7 @@ import aespa from "../assets/img/aespa.jpg";
 
 export default function Header({ handleSelectMember, members }) {
   const selectedMember = useSelector(selectMember);
+
   return (
     <StyledHeader>
       <h1>에스파 팬레터 콜렉션</h1>

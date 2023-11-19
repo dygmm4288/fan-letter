@@ -8,11 +8,12 @@ export const setSelectedMember = (member) => ({
   type: SET,
   payload: { member },
 });
-// 리듀서
+// 초기값
 const initialState = {
   selectedMember: KARINA,
 };
 
+// 리듀서
 const reducer = createReducer(initialState, {
   [SET]: (_, payload) => {
     return { selectedMember: payload.member };

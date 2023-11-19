@@ -1,5 +1,5 @@
-import AlertModal from "components/AlertModal";
-import ConfirmModal from "components/ConfirmModal";
+import AlertModal from "components/modal/AlertModal";
+import ConfirmModal from "components/modal/ConfirmModal";
 import { deleteMemberLetter, updateMemberLetter } from "modules/memberLetters";
 import {
   IS_ALERT,
@@ -25,13 +25,13 @@ export default function LetterDetailContainer({ letter, id }) {
   const handleUpdateButton = () => setIsUpdate(true);
 
   const handleUpdateDoneButton = () => {
+    setIsUpdate(false);
     if (contentValue === letter.content) {
       dispatch(setModalState({ key: IS_ALERT, value: true }));
       return;
     }
     dispatch(updateMemberLetter({ id, content: contentValue }));
     letter.content = contentValue;
-    setIsUpdate(false);
   };
   const handleRemoveButton = () => {
     dispatch(deleteMemberLetter({ id }));
@@ -53,7 +53,12 @@ export default function LetterDetailContainer({ letter, id }) {
         handleUpdateButton={handleUpdateButton}
         handleUpdateDoneButton={handleUpdateDoneButton}
       />
-      ,{isConfirm && <ConfirmModal handleConfirm={handleRemoveButton} />}
+      {isConfirm && (
+        <ConfirmModal
+          handleConfirm={handleRemoveButton}
+          text={"정말로 삭제하시겠습니까?"}
+        />
+      )}
       {isAlert && <AlertModal text='아무런 수정 사항이 없습니다.' />}
     </>
   );

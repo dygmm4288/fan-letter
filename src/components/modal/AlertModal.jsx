@@ -1,6 +1,6 @@
 import withModal from "containers/hoc/withModal";
-import Button from "./common/Button";
-import Modal from "./modal/Modal";
+import Button from "../common/Button";
+import Modal from "./Modal";
 
 function AlertModal({ handleCancle, text }) {
   return (

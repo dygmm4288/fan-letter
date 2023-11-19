@@ -1,12 +1,15 @@
+import { memo } from "react";
 import styled from "styled-components";
 
-export default function Avatar({ src, nickname, style }) {
+function Avatar({ src, nickname, style }) {
   return (
     <StyledAvatarWrapper {...style}>
       <img src={src} alt={nickname + "user avatar profile"} />
     </StyledAvatarWrapper>
   );
 }
+
+export default memo(Avatar);
 
 const StyledAvatarWrapper = styled.figure`
   width: ${(props) => (props.width ? props.width : "60px")};
